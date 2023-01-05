@@ -1,0 +1,434 @@
+eg#1
+class MyThread extends Thread{
+    //override run() method
+    public void run(){
+        for(int i=0;i<10;i++)
+        {
+            System.out.println("Child Thread");
+        }
+    }
+}
+
+public class MainThread{
+public static void main(String[] args) throws InterruptedException{
+MyThread t=new MyThread();
+t.start();
+Thread.sleep(4000);
+for(int i=0;i<10;i++)
+{ 
+    System.out.println("Main Thread");
+}
+}
+}
+
+eg#2
+ //create two other thread with main thread first thread will print  2304 to 2319 letters and second thread will print a to j and main thread will print 1 to 10 
+  class englishAlphabet extends Thread{
+    public void run(){
+for(int i='a';i<='j';i++){
+    System.out.print((char)i+" ");
+}
+    }
+  }
+ 
+  class hindiAlphabet extends Thread{
+    public void run(){
+       for(int i=2304;i<=2319;i++){
+           System.out.print(i+" ");
+       }
+    }
+  }
+ public class MainThread1{
+    public static void main(String []args){
+        englishAlphabet e=new englishAlphabet();
+        hindiAlphabet h=new hindiAlphabet();
+        e.start();
+        h.start();
+
+        for(int i=1;i<=10;i++){
+            System.out.print(i+" ");
+        }
+    }
+ }
+
+output:
+PS D:\Java-Enterprise\Multithreading\code> javac MainThread1.java
+PS D:\Java-Enterprise\Multithreading\code> java MainThread1
+2304 1 2 a 3 2305 4 b 5 2306 6 c 7 2307 8 d 9 2308 10 e 2309 f 2310 g 2311 h 2312 i 2313 j 2314 2315 2316 2317 2318 2319
+
+eg#3
+class Multiply implements Runnable{
+    public void run(){
+        int product=1;
+        for(int i=1;i<=10;i++)
+        {
+product*=i;
+System.out.println("Child Thread");
+        }
+        System.out.println("Product of 10 numbers is: "+product);
+        }
+    }
+
+
+public class MainRunnable {
+    
+    public static void main(String []args){
+        Multiply m=new Multiply();
+        Thread t=new Thread(m);
+        t.start();
+        int sum=0;
+
+        for(int i=0;i<100;i++)
+        {   sum+=i;
+            System.out.println("Main Thread"); 
+        }
+        System.out.println("Sum of 100 numbers is: "+sum);
+        
+    }
+}
+
+output:
+PS D:\Java-Enterprise\Multithreading\code> javac MainRunnable.java
+PS D:\Java-Enterprise\Multithreading\code> java MainRunnable
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Main Thread
+Main Thread
+Main Thread
+Sum of 100 numbers is: 45
+Product of 10 numbers is: 3628800
+
+//thread helps us to utilise the cpu time cycle  
+
+run() with start()
+eg#4
+
+class Check extends Thread{
+    public void run(){
+        for(int i=0;i<10;i++){
+            System.out.println("Check it is Child thread or not");
+        }
+    }
+
+}
+public class CheckThreadProperty{
+    public static void main(String []args){
+        Check c =new Check();
+        c.run();
+        for(int i=0;i<10;i++){
+            System.out.println("Main Thread");
+        }
+        }
+    }
+
+output:
+PS D:\Java-Enterprise\Multithreading\code> javac che
+ckThreadProperty.java
+PS D:\Java-Enterprise\Multithreading\code> java Chec
+kThreadProperty
+Check it is Child thread or not
+Check it is Child thread or not
+Check it is Child thread or not
+Check it is Child thread or not
+Check it is Child thread or not
+Check it is Child thread or not
+Check it is Child thread or not
+Check it is Child thread or not
+Check it is Child thread or not
+Check it is Child thread or not
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+
+result: we find without calling start() thread is not register to threadSheduler so by calling run() method it does not create the thread 
+
+eg#5
+class CheckOverloadRun extends Thread{
+    public void run(){
+        for(int i=0;i<10;i++){
+            System.out.println("Child Thread");
+        }
+    }
+
+    public void run(int i){
+        for(int j=0;j<10;j++){
+            System.out.println("Child Thread overloaded with parameter");
+        }
+    }
+}
+  
+public class OverloadRun {
+    public static void main (String [] args){
+        CheckOverloadRun c=new CheckOverloadRun();
+        c.run(10);
+        for(int i=0;i<10;i++){
+            System.out.println("Main Thread");
+        }
+    }
+}
+
+output:
+PS D:\Java-Enterprise\Multithreading\code> javac Ove
+rloadRun.java
+PS D:\Java-Enterprise\Multithreading\code> java Over
+loadRun
+Child Thread overloaded with parameter
+Child Thread overloaded with parameter
+Child Thread overloaded with parameter
+Child Thread overloaded with parameter
+Child Thread overloaded with parameter
+Child Thread overloaded with parameter
+Child Thread overloaded with parameter
+Child Thread overloaded with parameter
+Child Thread overloaded with parameter
+Child Thread overloaded with parameter
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+
+result: no new thread is created calling of overloaded run method 
+
+eg#6
+class CheckOverride extends Thread{
+    public void run(){
+        for(int i=0;i<10;i++){
+            System.out.println("Child Thread");
+        }
+    }
+
+    public void start(){
+        System.out.println("Override start method");
+         run();
+             
+       
+    }
+}
+
+public class OverrideStart {
+    public static void main(String []args){
+        CheckOverride c=new CheckOverride();
+        c.start();
+        for(int i=0;i<10;i++){
+            System.out.println("Main Thread");
+        }
+    }
+}
+
+output:
+PS D:\Java-Enterprise\Multithreading\code> javac Ove
+rrideStart.java
+PS D:\Java-Enterprise\Multithreading\code> java Over
+rideStart
+Override start method
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+
+result: if we override start method then we cannot create the new thread 
+
+eg#7
+
+ 
+
+class CheckOverrideStart extends Thread{
+    public void run()  
+    {   
+        System.out.println(Thread.currentThread().getName());
+        for(int i=0;i<10;i++){
+            
+            System.out.println("Child Thread");
+        }
+    }
+
+    public void start(){
+        System.out.println("Override start method");
+        super.start();
+    }
+}
+
+public class OverrideStart1{
+    public static void main(String []args) throws InterruptedException  {
+ Thread.currentThread().setName("shiva");
+        CheckOverrideStart c=new CheckOverrideStart();
+        c.start();
+ System.out.println(Thread.currentThread().getName());
+        for(int i=0;i<10;i++){
+              
+            System.out.println("Main Thread");
+        }
+    }
+}
+
+  Output:
+  PS D:\Java-Enterprise\Multithreading\code> javac Ove
+rrideStart1.java
+PS D:\Java-Enterprise\Multithreading\code> java Over
+rideStart1
+Override start method
+shiva
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Thread-0
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+
+eg#8 Thread priority
+public class Main {
+    public static void main(String []args)
+    {
+        MyThr t=new MyThr();
+        t.setPriority(0);
+        t.start();
+        for(int i=0;i<10;i++){
+            System.out.println("Main Thread");
+        }
+    }
+}
+class MyThr extends Thread {
+    public void run(){
+        for(int i=0;i<10;i++){
+            System.out.println("Child Thread");
+        }
+    }
+}
+
+output:
+PS D:\Java-Enterprise\Multithreading\code> javac Main.java
+PS D:\Java-Enterprise\Multithreading\code> java Main
+Exception in thread "main" java.lang.IllegalArgumentException
+        at java.base/java.lang.Thread.setPriority(Thread.java:1138)
+        at Main.main(Main.java:5)
+
+eg#9
+public class Main {
+    public static void main(String []args)
+    {
+        MyThr t=new MyThr();
+        // t.setPriority(0);
+        t.start();
+        for(int i=0;i<10;i++){
+            System.out.println("Main Thread");
+        }
+    }
+}
+class MyThr extends Thread {
+    public void run(){
+        Thread.currentThread().setPriority(0);
+        for(int i=0;i<10;i++){
+            System.out.println("Child Thread");
+        }
+    }
+}
+
+Output:
+ 
+PS D:\Java-Enterprise\Multithreading\code> javac Main.java
+PS D:\Java-Enterprise\Multithreading\code> java Main
+Main Thread
+Exception in thread "Thread-0" Main Thread
+Main Thread
+Main Thread
+java.lang.IllegalArgumentException
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+        at java.base/java.lang.Thread.setPriority(Thread.java:1138)
+Main Thread
+        at MyThr.run(Main.java:14)
+Main Thread
+ 
+result:
+main thread run properly without any interprution if exception come in child thread.
+
+eg#10
+public class Main {
+    public static void main(String []args)
+    {
+        MyThr t=new MyThr();
+        t.setPriority(10);
+        t.start();
+        for(int i=0;i<10;i++){
+            System.out.println("Main Thread");
+        }
+    }
+}
+class MyThr extends Thread {
+    public void run(){
+       
+        for(int i=0;i<10;i++){
+            System.out.println("Child Thread");
+        }
+    }
+}
+
+ output:
+first high priority thread run then low priority thread run ..
+
+
+
+  
+
+
