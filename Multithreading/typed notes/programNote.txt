@@ -427,8 +427,2371 @@ class MyThr extends Thread {
  output:
 first high priority thread run then low priority thread run ..
 
+eg#11
+class MyYield extends Thread{
+    public void run(){
+      for(int i=0;i<5;i++){
+        System.out.println("Child Thread");
+        Thread.yield();
+      }  
+    }
+}
+
+public class MainYield {
+ 
+
+    public static void main(String[] args) {
+        MyYield t=new MyYield(); 
+        t.start();
+        // try{
+        //     Thread.sleep(1);
+        // }
+        // catch(InterruptedException e){
+        //     System.out.println(e);
+        // }
+        for(int i=0;i<100;i++){
+            
+            System.out.println("Main Thread");
+        }
+    }
+}
 
 
+Output:
+PS D:\Java-Enterprise\Multithreading\code> javac MainYield.java
+PS D:\Java-Enterprise\Multithreading\code> java MainYield
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Child Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Child Thread
+Child Thread
+Child Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Child Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+
+result: whenver the child thread execute line come to yield() method then execution goes to waiting thread 
+then CHILD THREAD come to runnable state .
+
+eg#12
+ 
+class MyYield1 extends Thread{
+    public void run(){
+      for(int i=0;i<5;i++){
+        System.out.println("Child Thread1");
+        Thread.yield();
+      }  
+    }
+}
+
+class MyYield2 extends Thread{
+    public void run(){
+        for(int i=0;i<5;i++){
+            System.out.println("Child Thread2");
+        }
+    }
+}
+public class MainYield1 {
+ 
+
+    public static void main(String[] args) {
+        MyYield1 t=new MyYield1(); 
+        MyYield2 t1=new MyYield2();
+
+
+        t.start();
+        t1.start();
+         
+        for(int i=0;i<10;i++){
+            
+            System.out.println("Main Thread");
+        }
+    }
+}
+
+ 
+output:
+PS D:\Java-Enterprise\Multithreading\code> javac MainYield1.java
+PS D:\Java-Enterprise\Multithreading\code> java MainYield1
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Child Thread2
+Child Thread2
+Child Thread2
+Child Thread2
+Child Thread2
+Child Thread1
+Child Thread1
+Child Thread1
+Child Thread1
+Child Thread1
+
+eg#13
+class MyJoin extends Thread {
+    public void run(){
+        for(int i=0;i<10;i++){
+            System.out.println("Child Thread");
+        }
+    }
+    }
+
+
+public class MainJoin {
+    public static void main(String [] args)
+    {MyJoin t=new MyJoin();
+        t.start();
+       try{
+         t.join(); 
+        }
+
+       catch (InterruptedException e) {
+           System.out.println(e);
+       }
+
+        for(int i=0;i<10;i++)
+        {
+            System.out.println("Main Thread");
+        }
+    }
+    
+}
+
+Output:
+PS D:\Java-Enterprise\Multithreading\code> javac MainJoin.java
+PS D:\Java-Enterprise\Multithreading\code> java MainJoin
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+
+
+eg#14
+class MyJoin1 extends Thread {
+    Thread mainThread;
+    public void run(){
+        try{
+        mainThread.join();
+        }
+        catch (InterruptedException e) {
+            System.out.println(e);
+        }
+        for(int i=0;i<10;i++){
+            System.out.println("Child Thread");
+        }
+    }
+    }
+
+
+public class MainJon1 {
+    public static void main(String [] args)
+    {MyJoin1 t=new MyJoin1();
+        t.start();
+       
+        t.mainThread=Thread.currentThread();
+
+        for(int i=0;i<10;i++)
+        {
+            System.out.println("Main Thread");
+        }
+    }
+    
+}
+ 
+Output:
+PS D:\Java-Enterprise\Multithreading\code> javac MainJon1.java
+PS D:\Java-Enterprise\Multithreading\code> java MainJon1
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+
+eg#15
+public class MainJoin2 {
+     public static void main(String [] args){
+        MyJoin2 th1=new MyJoin2();
+        MyJoin3 th2=new MyJoin3();
+        th1.t1=Thread.currentThread();
+        th1.t2=th2;
+        th2.tt1=Thread.currentThread();
+         
+        th1.start();
+        th2.start();
+        
+        
+        for(int i=0;i<10;i++){
+            System.out.println("Main thread");
+        }
+
+eg#16
+
+class MySleep extends Thread{
+    public void run(){
+        for(int i=0;i<10;i++){
+            System.out.println("Child Thread");
+        }
+    }
+}
+public class MainSleep {
+    public static void main(String []args){
+        MySleep m=new MySleep();
+        m.start();
+for(int i=0;i<10;i++){
+   
+    System.out.println("Main Thread");
+    try{Thread.sleep(1000);
+    }
+    catch(InterruptedException e){
+        System.out.println(e);
+}
+    }
+}
+}
+
+output:
+PS D:\Java-Enterprise\Multithreading\code> javac MainSleep.java
+PS D:\Java-Enterprise\Multithreading\code> java MainSleep
+Main Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+     }
+}
+
+class MyJoin2 extends Thread {
+    Thread t1;
+    Thread t2;
+
+public void run(){   
+     try{t1.join();
+     t2.join();
+     }
+        catch (InterruptedException e) {
+            System.out.println(e);
+        }
+    for(int i=0;i<10;i++){
+        System.out.println("Child thread1");
+    }
+}
+}
+
+class  MyJoin3 extends Thread{
+    Thread tt1;
+    public void run(){
+          try{tt1.join();
+          }
+
+        catch (InterruptedException e) {
+            System.out.println(e);
+        }
+
+        for(int i=0;i<10;i++){
+            System.out.println("Child thread2");
+        }
+    }
+}
+
+
+output:
+PS D:\Java-Enterprise\Multithreading\code> javac MainJoin2.java
+PS D:\Java-Enterprise\Multithreading\code> java MainJoin2
+Main thread
+Main thread
+Main thread
+Main thread
+Main thread
+Main thread
+Main thread
+Main thread
+Main thread
+Main thread
+Child thread2
+Child thread2
+Child thread2
+Child thread2
+Child thread2
+Child thread2
+Child thread2
+Child thread2
+Child thread2
+Child thread2
+Child thread1
+Child thread1
+Child thread1
+Child thread1
+Child thread1
+Child thread1
+Child thread1
+Child thread1
+Child thread1
+Child thread1
+
+eg#16
+public class MainInterrupt {
+    public static void main(String [] args){
+MyInterrupt t=new MyInterrupt();
+MyInterrupt1 t1=new MyInterrupt1();
+t1.th=Thread.currentThread();
+t.start();
+t1.start();
+t1.interrupt(); 
+for(int i=0;i<100;i++){
+    System.out.println("Main Thread");
+    }
+}
+
+}
+class MyInterrupt extends Thread {
+    public void run(){
+        for(int i=0;i<10;i++){
+            System.out.println("Child Thread1");
+        }
+    }
+}
+
+class MyInterrupt1 extends Thread {
+    Thread th;
+    public void run(){
+        try{
+            th.join();
+        }
+
+        catch(InterruptedException e){
+            System.out.println(e);
+        }
+        for(int i=0;i<10;i++){
+            System.out.println("Child Thread2");
+           
+        }
+
+      
+       
+    }
+}
+
+Output:
+PS D:\Java-Enterprise\Multithreading\code> javac MainInterrupt.java
+PS D:\Java-Enterprise\Multithreading\code> java MainInterrupt
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+java.lang.InterruptedException
+Child Thread1
+Child Thread1
+Child Thread1
+Child Thread1
+Child Thread1
+Child Thread1
+Child Thread1
+Child Thread1
+Child Thread1
+Child Thread1
+Child Thread2
+Child Thread2
+Child Thread2
+Child Thread2
+Child Thread2
+Child Thread2
+Child Thread2
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Child Thread2
+Child Thread2
+Child Thread2
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+
+eg#18
+public class MainInterrupt {
+    public static void main(String [] args){
+MyInterrupt t=new MyInterrupt();
+MyInterrupt1 t1=new MyInterrupt1();
+t1.th=Thread.currentThread();
+t.start();
+t1.start();
+t1.interrupt(); 
+for(int i=0;i<100;i++){
+    System.out.println("Main Thread");
+    }
+}
+
+}
+class MyInterrupt extends Thread {
+    public void run(){
+        for(int i=0;i<10;i++){
+            System.out.println("Child Thread1");
+        }
+    }
+}
+
+class MyInterrupt1 extends Thread {
+    Thread th;
+    public void run(){
+        // try{
+        //     // th.join();
+        // }
+
+        // catch(InterruptedException e){
+        //     System.out.println(e);
+        // }
+        for(int i=0;i<10;i++){
+            System.out.println("Child Thread2");
+           
+        }
+
+      
+       
+    }
+}
+ 
+Output:
+PS D:\Java-Enterprise\Multithreading\code> javac MainInterrupt.java
+PS D:\Java-Enterprise\Multithreading\code> java MainInterrupt
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Child Thread1
+Child Thread1
+Child Thread1
+Child Thread1
+Child Thread1
+Child Thread1
+Child Thread1
+Child Thread1
+Child Thread1
+Child Thread1
+Child Thread2
+Child Thread2
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Child Thread2
+Child Thread2
+Child Thread2
+Child Thread2
+Child Thread2
+Child Thread2
+Child Thread2
+Child Thread2
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+
+eg#19
+class MySleepInterrupt extends Thread {
+    public void run() {
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            System.out.println("Interrupted");
+        }
+    }
+}
+public class MainInterrupt1 {
+    public static void main(String []args){
+        MySleepInterrupt m=new MySleepInterrupt();
+        m.start();
+        m.interrupt();
+        System.out.println("End of main");
+    }
+}
+
+output:
+PS D:\Java-Enterprise\Multithreading\code> javac MainInterrupt1.java
+PS D:\Java-Enterprise\Multithreading\code> java MainInterrupt1
+End of main
+Interrupted
+
+Synchrononize block and method ==============
+eg#20
+public class MainSynchronize {
+    public static void main(String []args){
+        Display d =new Display();
+        MyTh1 t1=new MyTh1(d,"Dhoni");
+        MyTh1 t2=new MyTh1(d,"Yuvraj");
+        t1.start();
+        t2.start();
+try {
+    Thread.sleep(1000);
+} catch (InterruptedException e) {
+    // TODO Auto-generated catch block
+    e.printStackTrace();
+}
+     synchronized(d){for(int i=0;i<10;i++){
+            System.out.println("Main Thread");
+        }}
+
+    }
+}
+
+class MyTh1 extends Thread{
+    Display d;
+    String name;
+    MyTh1(Display d, String name){
+        this.d=d;
+        this.name=name;
+    }
+    public void run(){
+         d.wish(name);
+        }
+    }
+class Display{
+    public synchronized void wish(String name){
+        for(int i=0;i<10;i++){
+            System.out.print("Good Morning:");
+            try{
+                Thread.sleep(100);
+            }catch(InterruptedException e){}
+            System.out.println(name);
+        }
+    }
+}
+
+Output:
+PS D:\Java-Enterprise\Multithreading\code> javac MainSynchronize.java
+PS D:\Java-Enterprise\Multithreading\code> java MainSynchronize
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+
+eg#21
+public class MainSynchronize1 {
+    public static void main(String []args){
+        Display1 d =new Display1();
+        MyTh2 t1=new MyTh2(d,"Dhoni");
+        MyTh3 t2=new MyTh3(d,"Yuvraj");
+        MyTh4 t3=new MyTh4(d,"Kohli");
+        t1.start();
+        // t2.start();
+        // t3.start();
+ 
+     synchronized(d){for(int i=0;i<10;i++){
+            System.out.println("Main Thread");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }}
+
+    }
+}
+
+class MyTh2 extends Thread{
+    Display1 d;
+    String name;
+    MyTh2(Display1 d, String name){
+        this.d=d;
+        this.name=name;
+    }
+    public void run(){
+         d.wish(name);
+        }
+    }
+class MyTh3 extends Thread{
+    Display1 d;
+    String name;
+    MyTh3(Display1 d, String name){
+        this.d=d;
+        this.name=name;
+    }
+    public void run(){
+         Display1.wish1(name);
+        }
+    }
+
+class MyTh4 extends Thread{
+    Display1 d;
+    String name;
+    MyTh4(Display1 d, String name){
+        this.d=d;
+        this.name=name;
+    }
+    public void run(){
+         d.wish2(name);
+        }
+    }
+
+
+class Display1{
+    public synchronized void wish(String name){
+        for(int i=0;i<10;i++){
+            System.out.print("Good Morning:");
+            try{
+                Thread.sleep(100);
+            }catch(InterruptedException e){}
+            System.out.println(name);
+        }
+    }
+
+    public static synchronized void wish1(String name){
+       
+        for(int i=0;i<10;i++){
+            System.out.print("Good Evening:");
+            try{
+                Thread.sleep(100);
+            }catch(InterruptedException e){}
+            System.out.println(name);
+      
+    }
+
+    }
+
+    public void wish2(String name){
+        for(int i=0;i<10;i++){
+            System.out.print("Good Night:");
+            try{
+                Thread.sleep(100);
+            }catch(InterruptedException e){}
+            System.out.println(name);
+        }
+    }
+    }
+
+eg#22
+public class MainCLassSync {
+    public static void main(String []args){
+        Display2 d1 =new Display2();
+        Display2 d2 =new Display2();
+
+        MyThe2 t1=new MyThe2(d1,"Dhoni");
+        MyThe2 t2=new MyThe2(d2,"Yuvraj");
+        t1.start();
+        t2.start();
+}
+}
+
+class MyThe2 extends Thread{
+    Display2 d;
+    String name;
+    MyThe2(Display2 d, String name){
+        this.d=d;
+        this.name=name;
+    }
+    public void run(){
+         d.wish(name);
+        }
+    }
+class Display2{
+    public synchronized void wish(String name){
+        for(int i=0;i<10;i++){
+            System.out.print("Good Morning:");
+            try{
+                Thread.sleep(100);
+            }catch(InterruptedException e){}
+            System.out.println(name);
+        }
+    }
+}
+
+output:
+PS D:\Java-Enterprise\Multithreading\code> javac MainCLassSync.java
+PS D:\Java-Enterprise\Multithreading\code> java MainCLassSync
+Good Morning:Good Morning:Dhoni
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Yuvraj
+Good Morning:Dhoni
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Dhoni
+Good Morning:Yuvraj
+Dhoni
+
+eg#23
+public class MainCLassSync {
+    public static void main(String []args){
+        Display2 d1 =new Display2();
+        Display2 d2 =new Display2();
+
+        MyThe2 t1=new MyThe2(d1,"Dhoni");
+        MyThe2 t2=new MyThe2(d2,"Yuvraj");
+        t1.start();
+        t2.start();
+}
+}
+
+class MyThe2 extends Thread{
+    Display2 d;
+    String name;
+    MyThe2(Display2 d, String name){
+        this.d=d;
+        this.name=name;
+    }
+    public void run(){
+         d.wish(name);
+        }
+    }
+class Display2{
+    public static synchronized void wish(String name){
+        for(int i=0;i<10;i++){
+            System.out.print("Good Morning:");
+            try{
+                Thread.sleep(100);
+            }catch(InterruptedException e){}
+            System.out.println(name);
+        }
+    }
+}
+
+output:
+PS D:\Java-Enterprise\Multithreading\code> javac MainCLassSync.java
+PS D:\Java-Enterprise\Multithreading\code> java MainCLassSync
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+
+eg#23
+public class Main {
+    public static void main(String []args)
+    {Disp d=new Disp();
+        MyThr t1=new MyThr(d,"Dhoni");
+        MyThr t2=new MyThr(d,"Yuvraj");
+
+        t1.start();
+        t2.start();
+
+
+    }
+}
+class MyThr extends Thread {
+    Disp d;
+    String name;
+    MyThr(Disp d, String name){
+        this.d=d;
+        this.name=name;
+    }
+    public void run(){
+       d.wish(name);
+    }
+}
+
+class Disp {
+    public void wish(String name){
+        System.out.println("Welcome to synchronized block");
+    synchronized(this)   { for(int i=0;i<50;i++){
+            System.out.print("Good Morning:");
+            try{
+                Thread.sleep(100);
+            }catch(InterruptedException e){}
+            System.out.println(name);
+        }
+    }
+System.out.println("End of synchronized block");
+
+    }
+}
+
+
+ output:
+ PS D:\Java-Enterprise\Multithreading\code> javac Main.java
+PS D:\Java-Enterprise\Multithreading\code> java Main
+Welcome to synchronized block
+Good Morning:Welcome to synchronized block
+Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+End of synchronized block
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+End of synchronized block
+
+eg#24
+public class Main {
+    public static void main(String []args)
+    {Disp d=new Disp();
+        MyThr11 t1=new MyThr11(d,"Dhoni");
+        MyThr11 t2=new MyThr11(d,"Yuvraj");
+
+        t1.start();
+        t2.start();
+
+
+    }
+}
+class MyThr11 extends Thread {
+    Disp d;
+    String name;
+    MyThr11(Disp d, String name){
+        this.d=d;
+        this.name=name;
+    }
+    public void run(){
+        for(int i=0;i<10;i++)
+        System.out.println("run"+i);
+      synchronized(d){d.wish(name);}
+    }
+}
+
+class Disp {
+    public void wish(String name){
+       
+      for(int i=0;i<50;i++){
+            System.out.print("Good Morning:");
+            try{
+                Thread.sleep(100);
+            }catch(InterruptedException e){}
+            System.out.println(name);
+        }
+    }
+ 
+
+    }
+
+
+
+ output:
+ PS D:\Java-Enterprise\Multithreading\code> javac Main.java
+PS D:\Java-Enterprise\Multithreading\code> java Main
+run0
+run1
+run0
+run1
+run2
+run3
+run4
+run5
+run2
+run3
+run6
+run7
+run8
+run9
+run4
+run5
+Good Morning:run6
+run7
+run8
+run9
+Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+
+block level lock on object
+eg#25
+public class Main {
+    public static void main(String []args)
+    {Disp d=new Disp();
+        MyThr11 t1=new MyThr11(d,"Dhoni");
+        MyThr22 t2=new MyThr22(d,"Yuvraj");
+
+        t1.start();
+        t2.start();
+
+
+    }
+}
+class MyThr11 extends Thread {
+    Disp d;
+    String name; 
+    MyThr11(Disp d, String name){
+        this.d=d;
+        this.name=name;
+    } 
+
+    public void run(){
+    synchronized(d){d.wish(name); }
+    }
+
+}
+
+class MyThr22 extends Thread {
+    Disp d;
+    String name; 
+    MyThr22(Disp d, String name){
+        this.d=d;
+        this.name=name;
+    } 
+
+    public void run(){
+    synchronized(d){d.wish(name); }
+    }
+
+}
+
+class Disp {
+    public void wish(String name){
+       
+      for(int i=0;i<50;i++){
+            System.out.print("Good Morning:");
+            try{
+                Thread.sleep(100);
+            }catch(InterruptedException e){}
+            System.out.println(name);
+        }
+    }
+ 
+
+    }
+
+
+output:
+PS D:\Java-Enterprise\Multithreading\code> javac Main.java
+PS D:\Java-Enterprise\Multithreading\code> java Main
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Dhoni
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+
+eg#26
+public class Main {
+    public static void main(String []args)
+    {Disp d=new Disp();
+        MyThr11 t1=new MyThr11(d,"Dhoni");
+        MyThr22 t2=new MyThr22(d,"Yuvraj");
+
+        t1.start();
+        t2.start();
+
+
+    }
+}
+class MyThr11 extends Thread {
+    Disp d;
+    String name; 
+    MyThr11(Disp d, String name){
+        this.d=d;
+        this.name=name;
+    } 
+
+    public void run(){
+    synchronized(d){
+        for(int i=0;i<10;i++)
+        System.out.println("shiva"); }
+    }
+
+}
+
+class MyThr22 extends Thread {
+    Disp d;
+    String name; 
+    MyThr22(Disp d, String name){
+        this.d=d;
+        this.name=name;
+    } 
+
+    public void run(){
+    synchronized(d){d.wish(name); }
+    }
+
+}
+
+class Disp {
+    public void wish(String name){
+       
+      for(int i=0;i<50;i++){
+            System.out.print("Good Morning:");
+            // try{
+            //     Thread.sleep(100);
+            // }catch(InterruptedException e){}
+            System.out.println(name);
+        }
+    }
+ 
+
+    }
+
+output:
+PS D:\Java-Enterprise\Multithreading\code> javac Main.java
+PS D:\Java-Enterprise\Multithreading\code> java Main
+shiva
+shiva
+shiva
+shiva
+shiva
+shiva
+shiva
+shiva
+shiva
+shiva
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+Good Morning:Yuvraj
+ 
+ eg#27
+public class CurrentThreadDemo{
+    public static void main(String ...args){
+        //controlling the main thread    
+        Thread t=Thread.currentThread(); 
+        System.out.println("Current Thread : "+t);
+
+        //change the name of the thread
+        t.setName("My Main Thread");
+        System.out.println("After name change: "+t);
+        try{
+            for(int n=5;n>0;n--)
+            {
+                System.out.println(n);
+                Thread.sleep(1000);
+            }
+        }
+
+        catch(InterruptedException e){
+            System.out.println("Main Thread Interputed");  
+        }
+    }
+}
+
+output:
+PS D:\Java-Enterprise\Multithreading\code> javac CurrentThreadDemo.java
+PS D:\Java-Enterprise\Multithreading\code> java CurrentThreadDemo
+Current Thread : Thread[main,5,main]
+After name change: Thread[My Main Thread,5,main]
+5
+4
+3
+2
+1
+
+eg#28
+ class NewThread implements Runnable{
+    public void run(){
+        try{
+           for(int i=0;i<5;i++)
+           {
+            Thread.sleep(1000);
+            System.out.println("Child Thread: "+Thread.currentThread()+" "+i);
+           }
+        }
+        catch(InterruptedException e){
+            System.out.println("Child thread Interupted");
+        }
+    }
+}
+
+public class ThreadDemo1 {
+    public static void main(String []args){
+NewThread r=new NewThread();
+Thread t=new Thread(r, "Child1"); //register thread to threadscheduler
+t.start();
+
+for(int i=0;i<5;i++)
+{
+    try{
+        Thread.sleep(1000);
+        System.out.println("Main thread: "+Thread.currentThread()+" "+i);
+    }
+    catch(InterruptedException e)
+    {
+        System.out.println("Main thread interupted");
+    }
+}
+    }
+}
+
+output:
+PS D:\Java-Enterprise\Multithreading\code> javac ThreadDemo1.java
+PS D:\Java-Enterprise\Multithreading\code> java ThreadDemo1
+Main thread: Thread[main,5,main] 0
+Child Thread: Thread[Child1,5,main] 0
+Main thread: Thread[main,5,main] 1
+Child Thread: Thread[Child1,5,main] 1
+Child Thread: Thread[Child1,5,main] 2
+Main thread: Thread[main,5,main] 2
+Main thread: Thread[main,5,main] 3
+Child Thread: Thread[Child1,5,main] 3
+Main thread: Thread[main,5,main] 4
+Child Thread: Thread[Child1,5,main] 4
+
+eg#29
+public class ThreadDemo2 {
+    public static void main(String ...args){
+NewThread2 t=new NewThread2();
+t.start();
+try{
+    for(int i=0;i<5;i++)
+    {
+        Thread.sleep(1000);
+        System.out.println("Main Thread: "+Thread.currentThread());
+    }
+}
+catch(InterruptedException e){
+    System.out.println("main thread interupted");
+}
+System.out.println("Main Thread task completed");
+}
+}
+
+class NewThread2 extends Thread{
+    public void run(){
+        try{
+for(int i=0;i<5;i++){
+    Thread.sleep(1000);
+System.out.println("child Thread: "+Thread.currentThread());
+}
+        }
+
+        catch(InterruptedException e){
+            System.out.println("child thread interupted");
+        }
+
+System.out.println("Child Thread Task Completed");
+    }
+}
+
+output:
+PS D:\Java-Enterprise\Multithreading\code> javac ThreadDemo2.java
+PS D:\Java-Enterprise\Multithreading\code> java ThreadDemo2
+Main Thread: Thread[main,5,main]
+child Thread: Thread[Thread-0,5,main]
+Main Thread: Thread[main,5,main]
+child Thread: Thread[Thread-0,5,main]
+Main Thread: Thread[main,5,main]
+child Thread: Thread[Thread-0,5,main]
+child Thread: Thread[Thread-0,5,main]
+Main Thread: Thread[main,5,main]
+child Thread: Thread[Thread-0,5,main]
+Child Thread Task Completed
+Main Thread: Thread[main,5,main]
+Main Thread task completed
+
+
+eg#30
+public class MultiThreadDemo {
+    public static void main(String ...args){
+        NewMultiThread r1=new NewMultiThread("One");
+        NewMultiThread r2=new NewMultiThread("two");
+        NewMultiThread r3=new NewMultiThread("three");
+
+        for(int i=0;i<5;i++){
+           try{ Thread.sleep(500);
+            System.out.println("this is main thread: "+i);
+           }
+           catch(InterruptedException e){
+            System.out.println("Main thread interupted");
+           }
+        }
+
+    }
+}
+
+class NewMultiThread implements Runnable{
+   
+    NewMultiThread(String threadName){
+    Thread t=new Thread(this,threadName);
+    t.start();
+    System.out.println("child: "+t);
+    }
+    public void run(){
+ 
+        try{
+            for(int i=0;i<5;i++)
+        {Thread.sleep(500);
+System.out.println(Thread.currentThread()+" "+i);
+        }      
+      }
+ catch(InterruptedException e){
+    System.out.println("child thread interupted");
+ }
+}
+}
+
+Output:
+PS D:\Java-Enterprise\Multithreading\code> javac MultiThreadDemo.java
+PS D:\Java-Enterprise\Multithreading\code> java MultiThreadDemo
+child: Thread[One,5,main]
+child: Thread[two,5,main]
+child: Thread[three,5,main]
+Thread[two,5,main] 0
+Thread[three,5,main] 0
+Thread[One,5,main] 0
+this is main thread: 0
+Thread[two,5,main] 1
+Thread[three,5,main] 1
+this is main thread: 1
+Thread[One,5,main] 1
+Thread[two,5,main] 2
+Thread[three,5,main] 2
+this is main thread: 2
+Thread[One,5,main] 2
+Thread[two,5,main] 3
+Thread[three,5,main] 3
+this is main thread: 3
+Thread[One,5,main] 3
+Thread[two,5,main] 4
+this is main thread: 4
+Thread[three,5,main] 4
+Thread[One,5,main] 4
+
+eg#31
+public class DemoJoin {
+    public static void main(String ...args){
+        Thread.currentThread().setName("Shiva");
+        NewThread3 r1=new NewThread3("Anshula");
+        NewThread3 r2=new NewThread3("Muskan");
+        NewThread3 r3=new NewThread3("Ritika");
+
+        try{
+        for(int i=0;i<1;i++){
+             
+            System.out.println("I am waiting for you "+r1.name+" "+r1.t.isAlive());
+            System.out.println("I am waiting for you "+r2.name+" "+r2.t.isAlive());
+            System.out.println("I am waiting for you "+r3.name+" "+r3.t.isAlive());
+            r1.t.join();
+            System.out.println(r1.name+" "+r1.t.isAlive());
+            r2.t.join();
+            System.out.println(r2.name+" "+r2.t.isAlive());
+            r3.t.join();
+            System.out.println(r3.name+" "+r3.t.isAlive());
+
+        }
+    }
+
+    catch(InterruptedException e){
+
+    }
+System.out.println(Thread.currentThread().getName()+" your life wasted due to waiting.");
+    }
+}
+
+class NewThread3 implements Runnable{
+    Thread t;
+    String name;
+    NewThread3(String threadName){
+        this.name=threadName;
+   t=new Thread(this, name);
+   t.start();
+    }
   
+    public void run(){
+try{
+    for(int i=5;i>0;i--){
+        System.out.println(name+ ": "+i);
+        Thread.sleep(500);
+    }
+}
+catch(InterruptedException e){
+    System.out.println("child got interrupted");
+}
+
+System.out.println(name+" said donot wait for me.\nYou are only my friend not more than that");
+    }
+
+}
+
+Output:
+PS D:\Java-Enterprise\Multithreading\code> javac DemoJoin.java
+PS D:\Java-Enterprise\Multithreading\code> java DemoJoin
+Anshula: 5
+Muskan: 5
+I am waiting for you Anshula true
+Ritika: 5
+I am waiting for you Muskan true
+I am waiting for you Ritika true
+Anshula: 4
+Ritika: 4
+Muskan: 4
+Anshula: 3
+Ritika: 3
+Muskan: 3
+Ritika: 2
+Anshula: 2
+Muskan: 2
+Ritika: 1
+Anshula: 1
+Muskan: 1
+Ritika said donot wait for me.
+You are only my friend not more than that
+Anshula said donot wait for me.
+You are only my friend not more than that
+Anshula false
+Muskan said donot wait for me.
+You are only my friend not more than that
+Muskan false
+Ritika false
+Shiva your life wasted due to waiting.
+
+eg#32 
+problem without synchronization in different object
+class CallMe{
+    public void call(String str){
+        try{
+            System.out.println("["+str);
+            Thread.sleep(1000);
+        }
+        catch(InterruptedException e){
+            System.out.println("Interrupted");
+        }
+        System.out.println("]");
+    }
+}
+
+class Caller implements Runnable{
+String str;
+CallMe target;
+Thread t;
+    public Caller(String str ,CallMe target ){
+       this.str=str;
+       this.target=target;
+       t=new Thread(this);
+    }
+
+    public void run(){
+target.call(str);
+    }
+}
+
+public class DemoSynchronization {
+    public static void main(String []args){
+
+Caller ob1=new Caller("Shiva Srivastava",new CallMe());
+Caller ob2=new Caller("Muskan Garg",new CallMe());
+Caller ob3=new Caller("Ritika Singh",new CallMe());
+
+System.out.println("Without Syncronization");
+ob1.t.start();
+ob2.t.start();
+ob3.t.start();
+    }
+}
+
+Output:
+PS D:\Java-Enterprise\Multithreading\code> javac DemoSynchronization.java
+PS D:\Java-Enterprise\Multithreading\code> java DemoSynchronization
+With Syncronization
+[Shiva Srivastava[Ritika Singh[Muskan Garg]
+]
+]
+
+eg#33
+problem without synchronization in same object
+class CallMe{
+    public  void call(String str){
+        try{
+            System.out.println("["+str);
+            Thread.sleep(1000);
+        }
+        catch(InterruptedException e){
+            System.out.println("Interrupted");
+        }
+        System.out.println("]");
+    }
+}
+
+class Caller implements Runnable{
+String str;
+CallMe target;
+Thread t;
+    public Caller(String str ,CallMe target ){
+       this.str=str;
+       this.target=target;
+       t=new Thread(this);
+    }
+
+    public void run(){
+target.call(str);
+    }
+}
+
+public class DemoSynchronization {
+    public static void main(String []args){
+CallMe target=new CallMe();
+Caller ob1=new Caller("Shiva Srivastava",target);
+Caller ob2=new Caller("Muskan Garg",target);
+Caller ob3=new Caller("Ritika Singh",target);
+
+System.out.println("With Syncronization");
+ob1.t.start();
+ob2.t.start();
+ob3.t.start();
+    }
+}
+
+output:
+PS D:\Java-Enterprise\Multithreading\code> javac DemoSynchronization.java
+PS D:\Java-Enterprise\Multithreading\code> java DemoSynchronization
+With Syncronization
+[Shiva Srivastava[Ritika Singh[Muskan Garg]
+]
+]
+ 
+eg#34
+problem for same object in synchronization
+class CallMe{
+    public synchronized void call(String str){
+        try{
+            System.out.print("["+str);
+            Thread.sleep(1000);
+        }
+        catch(InterruptedException e){
+            System.out.println("Interrupted");
+        }
+        System.out.println("]");
+    }
+}
+
+class Caller implements Runnable{
+String str;
+CallMe target;
+Thread t;
+    public Caller(String str ,CallMe target ){
+       this.str=str;
+       this.target=target;
+       t=new Thread(this);
+    }
+
+    public void run(){
+target.call(str);
+    }
+}
+
+public class DemoSynchronization {
+    public static void main(String []args){
+CallMe target=new CallMe();
+Caller ob1=new Caller("Shiva Srivastava",target);
+Caller ob2=new Caller("Muskan Garg",target);
+Caller ob3=new Caller("Ritika Singh",target);
+
+System.out.println("With Syncronization");
+ob1.t.start();
+ob2.t.start();
+ob3.t.start();
+    }
+}
+
+Output:
+PS D:\Java-Enterprise\Multithreading\code> javac DemoSynchronization.java
+PS D:\Java-Enterprise\Multithreading\code> java DemoSynchronization
+With Syncronization
+[Shiva Srivastava]
+[Ritika Singh]
+[Muskan Garg]
+
+eg#35
+problem solved for different object using static synchronized
+class CallMe{
+    public static synchronized void call(String str){
+        try{
+            System.out.print("["+str);
+            Thread.sleep(1000);
+        }
+        catch(InterruptedException e){
+            System.out.println("Interrupted");
+        }
+        System.out.println("]");
+    }
+}
+
+class Caller implements Runnable{
+String str;
+CallMe target;
+Thread t;
+    public Caller(String str ,CallMe target ){
+       this.str=str;
+       this.target=target;
+       t=new Thread(this);
+    }
+
+    public void run(){
+target.call(str);
+    }
+}
+
+public class DemoSynchronization {
+    public static void main(String []args){
+ 
+Caller ob1=new Caller("Shiva Srivastava",new CallMe());
+Caller ob2=new Caller("Muskan Garg",new CallMe());
+Caller ob3=new Caller("Ritika Singh",new CallMe());
+
+System.out.println("With Syncronization");
+ob1.t.start();
+ob2.t.start();
+ob3.t.start();
+    }
+}
+
+ Output:
+ PS D:\Java-Enterprise\Multithreading\code> javac DemoSynchronization.java
+PS D:\Java-Enterprise\Multithreading\code> java DemoSynchronization
+With Syncronization
+[Shiva Srivastava]
+[Ritika Singh]
+[Muskan Garg]
+
+eg#36
+class CallMe1{
+    public  void call(String str){
+        try{
+            System.out.print("["+str);
+            Thread.sleep(1000);
+        }
+        catch(InterruptedException e){
+            System.out.println("Interrupted");
+        }
+        System.out.println("]");
+    }
+}
+
+class Caller1 implements Runnable{
+String str;
+CallMe1 target;
+Thread t;
+    public Caller1(String str ,CallMe1 target ){
+       this.str=str;
+       this.target=target;
+       t=new Thread(this);
+    }
+
+    public void run(){
+        synchronized(target){
+target.call(str);
+        }
+    }
+}
+public class DemoSynchronizedBlock {
+    public static void main(String []args){
+CallMe1 target= new CallMe1();
+Caller1 ob1=new Caller1("Shiva",target);
+Caller1 ob2=new Caller1("Muskan",target);
+Caller1 ob3=new Caller1("Ritika",target);
+
+System.out.println("Synchronized statement");
+ob1.t.start();
+ob2.t.start();
+ob3.t.start();
+    }
+}
+
+output:
+PS D:\Java-Enterprise\Multithreading\code> javac DemoSynchronizedBlock.java
+PS D:\Java-Enterprise\Multithreading\code> java DemoSynchronizedBlock
+Synchronized statement
+[Shiva]
+[Ritika]
+[Muskan]
+
+eg#37
+class Display{
+    public void wish(String name){
+    ;;;;;;;;;;;;; //l-lakh lines of code
+    synchronized(this){
+    for (int i=1;i<=3;i++ )
+    {
+    System.out.print("Good night:");
+    try{
+    Thread.sleep(2000);
+    }
+    catch (InterruptedException e){}
+    System.out.println(name);
+    }
+    }
+     ;;;;;;;;;;;;;//1-lakh lines of code
+    }
+    }
+
+class MyThread extends Thread{
+    Display d;
+    String name;
+    MyThread(Display d,String name){
+    this.d=d;
+    this.name=name;
+    }
+    public void run(){
+    d.wish(name);
+    }
+    }
+
+public class DemoSynchronizeBlockCurrent {
+   public static void main(String []args){
+    Display d=new Display();
+new MyThread(d,"Muskan").start();;
+new MyThread(d,"Ritika").start();
+new MyThread(d,"Anshula").start();
 
 
+   } 
+}
+
+output:
+PS D:\Java-Enterprise\Multithreading\code> javac DemoSynchronizeBlockCurrent.java
+PS D:\Java-Enterprise\Multithreading\code> java DemoSynchronizeBlockCurrent
+Good night:Muskan
+Good night:Muskan
+Good night:Muskan
+Good night:Anshula
+Good night:Anshula
+Good night:Anshula
+Good night:Ritika
+Good night:Ritika
+Good night:Ritika
+
+eg#38
+class Display{
+    public void wish(String name){
+    ;;;;;;;;;;;;; //l-lakh lines of code
+    synchronized(Display.class){
+    for (int i=1;i<=3;i++ )
+    {
+    System.out.print("Good night:");
+    try{
+    Thread.sleep(2000);
+    }
+    catch (InterruptedException e){}
+    System.out.println(name);
+    }
+    }
+     ;;;;;;;;;;;;;//1-lakh lines of code
+    }
+    }
+
+class MyThread extends Thread{
+    Display d;
+    String name;
+    MyThread(Display d,String name){
+    this.d=d;
+    this.name=name;
+    }
+    public void run(){
+    d.wish(name);
+    }
+    }
+
+public class DemoSynchronizeBlockCurrent {
+   public static void main(String []args){
+  
+new MyThread(new Display(),"Muskan").start();;
+new MyThread(new Display(),"Ritika").start();
+new MyThread(new Display(),"Anshula").start();
+
+
+   } 
+}
+ 
+output:
+PS D:\Java-Enterprise\Multithreading\code> javac DemoSynchronizeBlockCurrent.java
+PS D:\Java-Enterprise\Multithreading\code> java DemoSynchronizeBlockCurrent
+Good night:Muskan
+Good night:Muskan
+Good night:Muskan
+Good night:Ritika
+Good night:Ritika
+Good night:Ritika
+Good night:Anshula
+Good night:Anshula
+Good night:Anshula
