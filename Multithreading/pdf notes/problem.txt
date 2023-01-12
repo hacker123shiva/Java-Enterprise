@@ -1,0 +1,95 @@
+Problem: 
+suppose we created annoyms object and call some method using this,  after one use automatically garbage collector  come and take away.
+
+new C().meth1() ---- T1 thread  
+and in between that we call demon thread manally before completly t1 thread .  
+is unreference object new C() removed from heap by garbage collector or not.
+
+just like weak hashmap we call garbage collector  manually.
+
+class Test extends Thread
+{
+    Test(){}
+    public void run()
+    {
+        for(int i=0;i<4;i++)
+            System.out.println(this.getName()+"i="+i);
+    }
+    protected void finalize()
+    {
+        System.out.println("Finalized");
+    }
+    public static void main(String args[])
+    {
+        new Test().start();
+ 
+    }
+}
+
+problem:1
+From what I know about Java, any unreferenced object is swept by the GC.
+ But there is no object reference here. Although the garbage collection process cannot be predetermined, 
+but, still, when would the GC be "probably" done?
+
+class Test extends Thread
+{
+    Test(){}
+    public void run()
+    {
+        for(int i=0;i<4;i++)
+            System.out.println(this.getName()+"i="+i);
+    }
+    protected void finalize()
+    {
+        System.out.println("Finalized");
+    }
+    public static void main(String args[])
+    {
+        new Test().start();
+       System.gc();
+    }
+}
+
+ class Test extends Thread
+{
+    Test(){}
+    public void run()  
+    {
+        for(int i=0;i<4;i++)
+		{try{
+			Thread.sleep(5000);
+		}
+
+		catch(Exception e)
+			{
+              System.out.println(e);
+			}
+            System.out.println(this.getName()+"i="+i);
+
+		}
+    }
+    protected void finalize()
+    {
+        System.out.println("Finalized");
+    }
+    public static void main(String args[])
+    {
+      new Test().start();
+      System.gc();
+	  System.out.println("shiva");
+	}
+}
+
+/*
+C:\Users\Shiva Srivastava\Desktop\Programming>javac thread.java
+Note: thread.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+C:\Users\Shiva Srivastava\Desktop\Programming>java Test
+shiva
+Thread-0i=0
+Thread-0i=1
+Thread-0i=2
+Thread-0i=3
+*/
+
