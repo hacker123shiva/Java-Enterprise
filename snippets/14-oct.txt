@@ -1,0 +1,108 @@
+CodeSnippets(JDK8 version)
+------------------------------------
+For the code below, what should be the name of java file?
+1.
+public class HelloWorld {
+public static void main(String [] args) {
+System.out.println("Hello World!");
+}
+}
+A. Hello.java
+B. World.java
+C. HelloWorld.java
+D. helloworld.java
+2-a
+public class CommandLineArgument{
+    public static void main(String []args){
+        System.out.println("You have entered " + args.length + " arguments");
+        // System.out.println("args2 "+args[2]); //case 4: uncomment this line and run the program
+        System.out.println("args3 "+args[3]);
+
+    }
+}
+/*
+ * case 1:
+PS D:\Java-Enterprise\snippets\java-snippet code running\14-oct> javac CommandLineArgument.java
+PS D:\Java-Enterprise\snippets\java-snippet code running\14-oct> java CommandLineArgument shiva
+You have entered 1 arguments
+Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: Index 3 out of bounds for length 1
+        at CommandLineArgument.main(CommandLineArgument.java:4)
+
+case 2:
+PS D:\Java-Enterprise\snippets\java-snippet code running\14-oct> java CommandLineArgument shiva muskan harsh ritika
+You have entered 4 arguments
+args3 ritika
+
+case3:
+PS D:\Java-Enterprise\snippets\java-snippet code running\14-oct> java CommandLineArgument shiva muskan harsh     ritika
+You have entered 4 arguments
+args3 ritika
+
+case 4:
+PS D:\Java-Enterprise\snippets\java-snippet code running\14-oct> javac CommandLineArgument.java
+PS D:\Java-Enterprise\snippets\java-snippet code running\14-oct> java CommandLineArgument shiva muskan harsh     ritika
+You have entered 4 arguments
+args2 harsh
+args3 ritika
+
+//note: giving space between arguments is not a problem in java command line argument
+ */.
+
+
+2-b
+Does below code compile successfully?
+public class Test {
+public static void main(String[] args) {
+System.out.println("Hello");;;;;;;;;
+}
+}
+A. yes
+B. no
+Ans: A
+In java every statement should be terminated with ; symbol
+Note: ; means ending.
+
+3.
+What is the signature of special main method?
+A. public static void main(String args) //[] is missing
+B. public static void main(String[] a) //correct
+C. public static void main()//missing String[] args
+D. private static void main(String[] args)// private can't be for a main method
+4.
+What will be the result of compiling and executing Test class?
+java Test good morning everyone
+private class Test{
+public static void main(String args[]) {
+System.out.println(args[1]);
+}
+}
+A. compilation error //valid answer becoz the main method class can't be private
+B. good
+C. morning
+D. everyone
+5.
+
+For the class Test, which options, if used to replace /*INSERT*/, will print
+"Hurrah! I passed..." on to the console? Select 2 options.
+public class Test {
+/*INSERT*/ {
+System.out.println("Hurrah! I passed...");
+}
+}
+A. static public void main(String[] args) // static and public can be
+interchanged so valid
+B. public static void main(String[] a)//valid
+C. static public void Main(String[] args)
+D. public void main(String[] args)
+E. protected static void main(String[] args)
+F. public void static main(String[] args)//here static and void is interchanged is
+not possible
+6.
+Suppose you have created a java file, "MyClass.java".
+Which of the following commands will compile the java file?
+A. javac MyClass //invalid becoz .java is missing
+B. java MyClass // javac is command is used for compilation
+C. javac MyClass.class //invalid becoz .java is missing
+D. javac MyClass.java //valid
+E. java MyClass.java //javac is the command for compilation and java is command
+for execution

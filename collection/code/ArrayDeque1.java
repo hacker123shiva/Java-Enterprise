@@ -75,7 +75,7 @@ public class ArrayDeque1 {
             ad1.peekLast(); // time complexity is O(1)
             ad1.removeFirstOccurrence("shiva"); // time complexity is O(n)
             ad1.removeLastOccurrence("shiva"); // time complexity is O(n)
-            ad1.add(null); 
+            // ad1.add(null);  threough null pointer exception 
             System.out.println(ad1);
     }
     

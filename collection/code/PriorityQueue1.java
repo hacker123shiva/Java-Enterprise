@@ -18,7 +18,7 @@ public class PriorityQueue1 {
          */
  
          PriorityQueue pq1=new PriorityQueue();
-            pq1.add(3);
+            pq1.add(3); // time complexity is O(log(n))  
             pq1.add(2);
             pq1.add(1);
             pq1.add(4);
@@ -62,6 +62,7 @@ public class PriorityQueue1 {
           //# min heap is not sorted 
           //# min heap is not thread safe
           //# min heap is not synchronized
+          //# index based access is not allowed in min heap
           
         //   pq1.add(4.5);  // java.lang.ClassCastException: java.lang.Double cannot be cast to java.lang.Integer
         //   pq1.add(4.5f); // java.lang.ClassCastException: java.lang.Float cannot be cast to java.lang.Integer

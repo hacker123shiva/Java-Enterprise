@@ -216,11 +216,7 @@ for(Object o : arr)
 System.out.println("spliterator method");
 //spliterator method use to split linkedlist into two parts 
 Spliterator spl = ll1.spliterator();
-spl.forEachRemaining(System.out::println);
-
-
-
-
+spl.forEachRemaining(System.out::println); 
 
 
     }

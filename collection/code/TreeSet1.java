@@ -23,6 +23,8 @@ public class TreeSet1 {
             // ts1.add("shiva"); // java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Integer
             // ts1.add("muskan");
             System.out.println(ts1);
+            //index based access is not allowed in TreeSet
+
 /*
 TreeSet follow binary search tree data structure 
 3     3      3     3        3

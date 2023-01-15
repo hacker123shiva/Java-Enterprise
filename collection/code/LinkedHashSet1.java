@@ -14,7 +14,14 @@ public class LinkedHashSet1 {
     lhs1.add(5); //time complexity is O(1)
     lhs1.add(null);
     lhs1.add(null);
+    lhs1.add("shiva");
     System.out.println(lhs1);
+    //searching method in linkedhashset
+    lhs1.contains(3); //time complexity is O(1)
+   lhs1.remove("shiva"); //time complexity is O(1) 
+    lhs1.size(); //time complexity is O(1)
+    System.out.println(lhs1);
+    
  
     }
 }

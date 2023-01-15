@@ -15,9 +15,15 @@ public class Hashset1 {
         hs1.add(1);
         hs1.add(4);
         hs1.add(5);
-        hs1.add(5);
+        hs1.add(5); //time complexity is O(1)
         hs1.add(null);
         hs1.add(null);
-        System.out.println(hs1);
+        System.out.println(hs1); 
+
+        //which hashfunction is used in hashset  
+        //hashset is using hashcode of object to store the elements in hashset
+        //hashset uses hashfunction and hashtable to store the elements in hashset 
+        //searching in hashset is O(1) time complexity
+  
     }
 }
