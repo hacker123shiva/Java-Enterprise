@@ -1,0 +1,799 @@
+Normal or Regular inner classes  :
+a)Accessing inner class code from static area of outer class 
+==================================================
+1) 
+ class Outer
+ {   class Inner
+     {
+      public void  help()
+		 {
+		  System.out.println("I am in Inner class");
+		 }
+     }
+
+	 public static void main(String [] args)
+	 {
+System.out.println("I am in Static Block of Main");
+Inner obj=new Inner();
+obj.help();
+	 }
+ }
+
+C:\Users\Shiva Srivastava\Desktop\Programming>javac Main.java
+Main.java:13: error: non-static variable this cannot be referenced from a static context
+Inner obj=new Inner();
+          ^
+1 error
+
+2)
+  class Outer
+ {   class Inner
+     {
+      public void  help()
+		 {
+		  System.out.println("I am in Inner class");
+		 }
+     }
+
+	 public static void main(String [] args)
+	 {
+System.out.println("I am in Static Block of Main");
+Outer out=new Outer();
+Outer.Inner in=out.new Inner();
+in.help();
+	 }
+ }
+
+C:\Users\Shiva Srivastava\Desktop\Programming>javac Main.java
+
+C:\Users\Shiva Srivastava\Desktop\Programming>java Outer
+I am in Static Block of Main
+I am in Inner class
+
+3)
+  class Outer
+ {   class Inner
+     {
+      public void  help()
+		 {
+		  System.out.println("I am in Inner class");
+		 }
+     }
+
+	 public static void main(String [] args)
+	 {
+System.out.println("I am in Static Block of Main");
+ 
+Outer.Inner in=new Outer().new Inner();
+in.help();
+	 }
+ }
+
+C:\Users\Shiva Srivastava\Desktop\Programming>javac Main.java
+
+C:\Users\Shiva Srivastava\Desktop\Programming>java Outer
+I am in Static Block of Main
+I am in Inner class
+---------------------------------------------------------------------------------------------------------------
+b)Accessing inner class code from static area of outer class 
+===============================================================
+1)
+  class Outer
+ {   class Inner
+     {
+      public void  help()
+		 {
+		  System.out.println("I am in Inner class");
+		 }
+     }
+     public void go()
+	{
+		 Inner obj=new Inner();
+		 obj.help();
+	 }
+	 public static void main(String [] args)
+	 {
+System.out.println("I am in Static Block of Main");
+Outer out=new Outer();
+out.go();
+	 }
+ }
+
+C:\Users\Shiva Srivastava\Desktop\Programming>javac Main.java
+
+C:\Users\Shiva Srivastava\Desktop\Programming>java Outer
+I am in Static Block of Main
+I am in Inner class
+
+-----------------------------------------------------------------------------------------------------
+c)Accessing inner class code from outside of outer class
+  class Outer
+ {   class Inner
+     {
+      public void  help()
+		 {
+		  System.out.println("I am in Inner class");
+		 }
+     }
+	 public static void main(String [] args)
+	 {
+System.out.println("I am in Static Block of Main");
+ Alpha obj=new Alpha();
+ obj.go();
+	 }
+ }
+ class Alpha
+ {
+	 public void go()
+	 {
+		 Outer out=new Outer();
+		 Outer.Inner in=out.new Inner();
+		 in.help();
+	 }
+ }
+
+C:\Users\Shiva Srivastava\Desktop\Programming>javac Main.java
+
+C:\Users\Shiva Srivastava\Desktop\Programming>java Outer
+I am in Static Block of Main
+I am in Inner class
+
+
+=>From inner class we can access all members of outer class (both static and nonstatic, private and non private methods and variables) directly.
+  
+class Outer
+ {  
+	 int x=5;
+     public void name()
+	 {
+		 System.out.println("Shiva Srivastava");
+	 }
+	 class Inner
+     {
+      public void  help()
+		 {
+		  System.out.println("I am in Inner class: "+x);
+		  name();
+		 }
+     }
+	 public static void main(String [] args)
+	 {
+System.out.println("I am in Static Block of Main");
+ Alpha obj=new Alpha();
+ obj.go();
+	 }
+ }
+ class Alpha
+ {
+	 public void go()
+	 {
+		 Outer out=new Outer();
+		 Outer.Inner in=out.new Inner();
+		 in.help();
+	 }
+ }
+
+C:\Users\Shiva Srivastava\Desktop\Programming>javac Main.java
+
+C:\Users\Shiva Srivastava\Desktop\Programming>java Outer
+I am in Static Block of Main
+I am in Inner class: 5
+Shiva Srivastava
+
+
+ class Outer {
+int x=10;
+class Inner{
+int y=100;
+public void m1(){
+int z=1000;
+System.out.println(x);
+System.out.println(y);;
+System.out.println(z);
+}
+ }
+public static void main(String[] args) {
+new Outer().new Inner().m1();
+}
+}
+
+C:\Users\Shiva Srivastava\Desktop\Programming>javac Main.java
+
+C:\Users\Shiva Srivastava\Desktop\Programming>java Outer
+10
+100
+1000
+----------------------------------------------------------------------------------------------------------------
+d)Nesting of Inner classes
+============================================================
+=> Within the inner class "this" always refers current inner class object. To refer
+current outer class object we have to use "outer class name.this".
+
+ class Outer {
+int x=10;
+class Inner{
+int x=100;
+public void m1(){
+int x=1000;
+System.out.println(x);
+System.out.println(this.x);
+System.out.println(Outer.this.x);
+}
+ }
+public static void main(String[] args) {
+new Outer().new Inner().m1();
+}
+}
+
+C:\Users\Shiva Srivastava\Desktop\Programming>javac Main.java
+
+C:\Users\Shiva Srivastava\Desktop\Programming>java Outer
+10
+100
+1000
+
+=> Three Level  Nesting of class
+class Outer {
+int x=5;
+class Middle
+{
+int x=10;
+class Inner{
+int x=100;
+public void m1(){
+int x=1000;
+System.out.println(x);
+System.out.println(this.x);
+System.out.println(Middle.this.x);
+System.out.println(Outer.this.x);
+}
+}
+
+}
+public static void main(String[] args) {
+new Outer().new Middle().new Inner().m1();
+}
+}
+
+C:\Users\Shiva Srivastava\Desktop\Programming>javac Main.java
+
+C:\Users\Shiva Srivastava\Desktop\Programming>java Outer
+1000
+100
+10
+5
+
+=>We can declare an inner class inside another inner class 
+
+ class A
+ { 
+	 class B
+	 {
+		 class C
+		 {
+			 public void help()
+			 {
+				 System.out.println("I am ready to help You but i am in three level Nesting");
+			 }
+		 }
+	 }
+	 public static void main(String []args)
+	 {
+		 A.B.C obj =new A().new B().new C();
+		 obj.help();
+	 }
+
+ }
+
+
+C:\Users\Shiva Srivastava\Desktop\Programming>javac Main.java
+
+C:\Users\Shiva Srivastava\Desktop\Programming>java A
+I am ready to help You but i am in three level Nesting
+
+We can declare an inner class inside another inner class 
+class A {
+class B{
+class C{
+public void m1(){
+System.out.println("C class method");
+}
+}
+}
+}
+class Test{ 
+public static void main(String[] args) {
+A a = new A();
+A.B b = a.new B();
+A.B.C c = b.new C();
+ c.m1();
+ }
+}
+javac Test
+java Test
+C class method
+Note:
+ new A().new B().new C().m1();
+
+-------------------------------------------------------------------------------------
+e) The applicable modifiers for outer & inner classes
+================================================
+The applicable modifiers for outer classes are:
+1. public
+2. default
+3. final
+4. abstract
+5. strictfp
+
+But for the inner classes in addition to this the following modifiers also allowed.
+ 1.private
+ 2.protected
+ 3.static
+
+     Method local inner classes:
+======================
+=> Sometimes we can declare a class inside a method such type of inner classes are 
+called method local inner classes.
+=> The main objective of method local inner class is to define method specific 
+repeatedly required functionality.
+=> Method Local inner classes are best suitable to meet nested method requirement.
+=> We can access method local inner class only within the method where we declared 
+it. 
+ That is from outside of the method we can't access. As the scope of method 
+local inner classes is very less, 
+ this type of inner classes are most rarely used type of inner classes.
+
+ class Outer 
+ {
+	 public void help()
+	 {
+class Inner
+{
+	public void add(int x,int y)
+	{
+		System.out.println("Sum is:: "+(x+y));
+	}
+}
+new Inner().add(4,5);
+;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;
+new Inner().add(34,45);
+	 }
+             public static void  main(String [] args)
+	 {System.out.println("Doing Operation");
+		 new Outer().help();
+	 }
+ }
+
+C:\Users\Shiva Srivastava\Desktop\Programming>javac Main.java
+
+C:\Users\Shiva Srivastava\Desktop\Programming>java Outer
+Doing Operation
+Sum is:: 9
+Sum is:: 79
+
+=> If we are declaring inner class inside instance method then we can access both 
+static and non static members of outer class directly.
+=> But if we are declaring inner class inside static method then we can access only
+static members of outer class directly and 
+ we can't access instance members directly.
+
+ class Outer {
+int x=10;
+static int y=20;
+public void m1(){
+class Inner{
+public void m2(){
+System.out.println(x);
+System.out.println(y);
+}
+}
+Inner i=new Inner();
+i.m2();
+}
+public static void main(String[] args) {
+new Outer().m1();
+}
+}
+
+C:\Users\Shiva Srivastava\Desktop\Programming>javac Main.java
+
+C:\Users\Shiva Srivastava\Desktop\Programming>java Outer
+10
+20
+
+case2:
+if we declare inner class inside static method then it would result in CE.
+=> If we declare methodOne() method as static then we will get compile time error 
+saying "non-static variable x cannot be referenced from a static context".
+=> From method local inner class we can access local variables of the method in 
+which we declared it. 
+ 
+
+
+ class Outer {
+	 
+public void m1(){
+ final int x=10;
+class Inner{
+public void m2(){
+System.out.println(x);
+}
+}
+Inner i=new Inner();
+i.m2();
+}
+public static void main(String[] args) {
+new Outer().m1();
+}
+}
+
+C:\Users\Shiva Srivastava\Desktop\Programming>javac Main.java
+
+C:\Users\Shiva Srivastava\Desktop\Programming>java Outer
+10
+
+CaseStudy
+=========
+class Outer {
+int i=10;
+static int j=20;
+public void m1(){
+int k=30;
+final int l=40;
+class Inner{
+public void m2(){
+//line-1
+}
+}
+Inner i=new Inner();
+i.m2();
+}
+public static void main(String[] args) {
+new Outer().m1();
+}
+}
+
+At line-1 how many variables we can access?
+ i,j,k,l
+if we make m1() as static how many variables we can access?
+ j,k,l
+if we make m2() as static how many variables we can access
+ compile time error.
+
+The only applicable modifiers for method local inner classes are: 
+1. final
+2. abstract
+3. strictfp
+
+
+ 
+========================================
+|                           Anonymous inner classes:                                  |
+========================================
+> Sometimes we can declare inner class without name such type of inner classes are called anonymous inner classes.
+=> The main objective of anonymous inner classes is "just for instant use".
+=> There are 3 types of anonymous inner classes 
+1. Anonymous inner class that extends a class.
+2. Anonymous inner class that implements an interface.
+3. Anonymous inner class that defined inside method arguments.
+
+1. Anonymous inner class that extends a class.
+========================================
+eg#1
+ class PopCorn
+ {
+	 public void taste(){
+	 System.out.println("salty");
+	 }
+ }
+ class Test
+{
+	 public static void main(String [] args)
+	 {
+		 PopCorn p=new PopCorn()
+		 {
+public void taste()
+			 {
+	System.out.println("Salty");
+		                        }
+	                      };
+     p.taste();
+	 PopCorn p1=new PopCorn();
+     p1.taste();
+                 }
+
+}
+
+C:\Users\Shiva Srivastava\Desktop\Programming>javac Main.java
+C:\Users\Shiva Srivastava\Desktop\Programming>java Test
+Salty
+salty
+
+Analysis: 
+1. PopCorn p=new PopCorn(); 
+ We are just creating a PopCorn object.
+2. PopCorn p=new PopCorn(){
+ };
+ We are creating child class without name for the PopCorn class and for that 
+child class we are creating an object 
+ with Parent PopCorn reference.
+2. PopCorn p=new PopCorn()
+ {
+ @Override
+ public void taste(){
+ System.out.println("salty");
+ }
+ };
+1. We are creating child class for PopCorn without name.
+2. We are overriding taste() method.
+3. We are creating object for that child class with parent reference.
+Note:
+Inside Anonymous inner classes we can take or declare new methods but outside of 
+anonymous inner classes we can't call these methods directly because we are 
+depending on parent reference.[parent reference can be used to hold child class 
+object but by using that reference we can't call child specific methods]. These 
+methods just for internal purpose only.
+
+
+ eg#2
+ class PopCorn
+ {
+	 public void taste(){
+	 System.out.println("salty");
+	 }
+ }
+
+ class Test
+{
+	 public static void main(String [] args)
+	 {
+		 PopCorn p=new PopCorn()
+		 {
+public void taste()
+			 {
+	System.out.println("Salty");
+	methylene();
+		     }
+
+public void methylene()
+			 {
+	System.out.println("I am for methylene");
+			 }
+	     };
+     p.taste();
+	 PopCorn p1=new PopCorn();
+     p1.taste();
+    }
+
+}
+
+
+C:\Users\Shiva Srivastava\Desktop\Programming>javac Main.java
+C:\Users\Shiva Srivastava\Desktop\Programming>java Test
+Salty
+I am for methylene
+salty
+
+eg#3
+class PopCorn{
+public void taste(){
+System.out.println("spicy");
+}
+}
+class Test {
+public static void main(String[] args) {
+PopCorn p=new PopCorn(){
+public void taste(){
+methodOne();//valid call(internal purpose)
+System.out.println("salty");
+ }
+public void methodOne(){
+System.out.println("child specific method");
+ }
+ };
+//p.methodOne();//here we can not call(outside inner class)
+p.taste();//salty
+PopCorn p1=new PopCorn();
+p1.taste();//spicy
+ }
+}
+Output:
+Child specific method
+Salty
+Spicy
+
+eg#4
+class Test {
+public static void main(String[] args){
+Thread t=new Thread(){
+public void run(){
+for(int i=0;i<10;i++){
+System.out.println("child thread");
+}
+}
+};
+t.start();
+for(int i=0;i<10;i++){
+System.out.println("main thread");
+}
+}
+}
+
+eg#5
+ class Popcorn
+ {
+	 public static void main(String []args)
+	 {
+		 Thread t =new Thread(){
+			 public void run()
+			 {
+				 for(int i=0;i<10;i++)
+					 System.out.println("Child Thread");
+			 }
+
+	 };
+
+	 	 t.start();
+ try {
+	t.join();
+} catch (InterruptedException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+}
+		for(int i=0;i<10;i++)
+      System.out.println("Main Thread");
+ }
+
+}
+
+C:\Users\Shiva Srivastava\Desktop\Programming>javac Main.java
+C:\Users\Shiva Srivastava\Desktop\Programming>java Popcorn
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+Main Thread
+
+
+Anonymous Inner Class that implements an interface:
+========================================
+class InnerClassesDemo{
+public static void main(String[] args) {
+Runnable r=new Runnable(){ //here we are not creating for Runnable  interface are creating implements class object.
+public void run(){
+for(int i=0;i<10;i++){
+System.out.println("Child thread");
+}
+}
+ };
+Thread t=new Thread(r);
+t.start();
+for(int i=0;i<10;i++){
+System.out.println("Main thread");
+}
+}
+}
+
+
+C:\Users\Shiva Srivastava\Desktop\Programming>javac Main.java
+
+C:\Users\Shiva Srivastava\Desktop\Programming>java InnerClassesDemo$1.class
+Error: Could not find or load main class InnerClassesDemo$1.class
+Caused by: java.lang.ClassNotFoundException: InnerClassesDemo$1.class
+
+C:\Users\Shiva Srivastava\Desktop\Programming>java InnerClassesDemo
+Main thread
+Child thread
+Child thread
+Child thread
+Child thread
+Child thread
+Child thread
+Child thread
+Child thread
+Child thread
+Child thread
+Main thread
+Main thread
+Main thread
+Main thread
+Main thread
+Main thread
+Main thread
+Main thread
+Main thread
+
+
+
+ class Test
+ {
+	 public static void main(String []args)
+	 {
+		 new Thread(new Runnable(){
+			 public void run()
+			 {
+				 for(int i=0;i<10;i++)
+				 {
+					 System.out.println("Child Thread");
+				 }
+			 }
+		 }).start();
+		 for(int i=0;i<10;i++)
+		 {
+			 System.out.println("main Thread");
+		 }
+	 }
+ }
+C:\Users\Shiva Srivastava\Desktop\Programming>javac Main.java
+
+C:\Users\Shiva Srivastava\Desktop\Programming>java Test
+main Thread
+main Thread
+main Thread
+main Thread
+main Thread
+main Thread
+main Thread
+main Thread
+main Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+main Thread
+
+lambda Expression
+================
+new Thread(
+()-> {
+for (int i =1;i<=5;i++ )
+{
+System.out.println("child thread");
+}
+}
+).start();
+When we use lambda expression,code would be compact and no .class file for lambda 
+expression.
+
+Difference between general class and anonymous inner classes:
+===============================================
+General Class 
+1) A general class can extends only one class at a time.
+2) A general class can implement any no. Of interfaces at a time.
+3) A general class can extends a class and can implement an interface 
+simultaneously.
+4) In normal Java class we can write constructor because we know name of the class.
+Anonmyous Inner class
+1. Of course anonymous inner class also can extends only one class at a time.
+2) But anonymous inner class can implement only one interface at a time.
+3) But anonymous inner class can extends a class or can implements an interface but
+not 
+ both simultaneously.
+4) But in anonymous inner class we can't write constructor because anonymous inner 
+class not 
+ having any name of the class.
+
+
+
