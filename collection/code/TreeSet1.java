@@ -20,6 +20,7 @@ public class TreeSet1 {
             ts1.add(1);
             ts1.add(4);
             ts1.add(5);
+            // ts1.add("shiva");
             // ts1.add("shiva"); // java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Integer
             // ts1.add("muskan");
             System.out.println(ts1);
@@ -84,6 +85,12 @@ System.out.println("*************************");
     System.out.println(ts1.ceiling(10));
     System.out.println(ts1.higher(9));
 
+    TreeSet ts2=new TreeSet();
+    ts2.add("Aff");
+    ts2.add("Bff");
+    ts2.add("Cff");
+    // ts2.add(3); 
+    System.out.println(ts2);
 
 
          

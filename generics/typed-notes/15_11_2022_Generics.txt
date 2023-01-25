@@ -1,0 +1,174 @@
+eg#1
+ 
+import java.util.*;
+ class Gen1
+ {
+	 public static void main(String []args)
+	 {
+      ArrayList<String> al=new ArrayList<String>();
+	  al.add("NavinReddy");
+	  //al.add(10);  -->Give  error: incompatible types: int cannot be converted to String
+	  System.out.println(al);
+	  String str=al.get(0);
+	  System.out.println(str);
+	 }
+ }
+
+eg#2
+import java.util.*;
+ class Gen1
+ {
+	 public static void main(String []args)
+	 {
+      LinkedList<Integer> ls=new LinkedList<Integer>();
+	  ls.add(3);
+	  //ls.add(3.4);  error: incompatible types: double cannot be converted to Integer
+	  System.out.println(ls);
+	  Integer i=ls.get(0);
+	  System.out.println(i);
+	 }
+ }
+
+#eg3
+ 
+import java.util.*;
+ class Gen1
+ {
+	 public static void main(String []args)
+	 {
+     List<String> al1=new ArrayList<String>();
+     Collection<String> al2=new ArrayList<String>();
+	 Collection<Object> al3=new ArrayList<Object>();
+     
+	 al1.add("shiva");
+	 al1.add("harsh");
+	 al1.add("muskan");
+	 System.out.println(al1);
+     System.out.println(al1.get(0));
+
+
+     al2.add("shiva");
+	 al2.add("harsh");
+	 al2.add("muskan"); 
+	 System.out.println(al2);
+	//System.out.println(al2.get(0)); -->Since get() is specialised method of arrayList
+
+	 al3.add("shiva");
+	 al3.add("harsh");
+	 al3.add(3); 
+	 al3.add(true);
+	 al3.add('S');
+	 System.out.println(al3);
+	// System.out.println(al3.get(0));
+	 }
+ }
+
+eg#4
+ 
+import java.util.*;
+ class Gen1
+ {
+	 public static void main(String []args)
+	 {
+      Gen<String> o=new Gen<String>();
+	  o.show("Shiva");
+	 }
+ }
+
+ class Gen<T>
+ {
+ public void show(T obj)
+	 {
+    System.out.println(obj);
+	 }
+ }
+
+eg#5
+ 
+import java.util.*;
+ class Gen1
+ {
+	 public static void main(String []args)
+	 {
+      Gen<String> o=new Gen<String>();
+	  o.show("Shiva");
+	  ArrayList<Integer> al=new ArrayList<Integer>();
+	  al.add(400);
+      o.ran(al);
+	 }
+ }
+
+ class Gen<T>
+ {
+ public void show(T obj)
+	 {
+    System.out.println(obj);
+	 }
+public static void ran(ArrayList<? extends Number> al)
+	 {
+        al.add(null);
+		//al.add(5);
+/*
+Main.java:22: error: incompatible types: int cannot be converted to CAP#1
+                al.add(5);
+                       ^
+  where CAP#1 is a fresh type-variable:
+    CAP#1 extends Number from capture of ? extends Number
+*/
+
+		System.out.println(al);
+	 }
+ }
+
+eg#6
+ 
+import java.util.*;
+ class Gen1
+ {   public <T> void console(String str)
+	 { 
+       
+	  System.out.println(str);
+	 }
+	 public static void main(String []args)
+	 {
+		 Gen1 obj=new Gen1();
+		 obj.<Integer>console("shiva Srivastava");
+      Gen<String> o=new Gen<String>();
+	  o.show("Shiva");
+	  ArrayList<Integer> al=new ArrayList<Integer>();
+	  al.add(400);
+      o.ran(al);
+	 }
+ }
+
+ class Gen<T>
+ {
+ public void show(T obj)
+	 {
+    System.out.println(obj);
+	 }
+public static void ran(ArrayList<? extends Number> al)
+	 {
+        al.add(null);
+		//al.add(5);
+		System.out.println(al);
+	 }
+ }
+
+eg#7
+import java.util.*;
+
+class GenericAtMethod
+{
+	public <T extends Number> void show()
+	{
+     System.out.println("Help");
+	}
+
+	public static void main(String []args)
+	{
+     GenericAtMethod obj=new GenericAtMethod();
+	 obj.show();
+	}
+
+}
