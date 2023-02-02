@@ -38,18 +38,30 @@ PS D:\Java-Enterprise\Comparable&Comparator\code> java TreeSet2
 [ana, arsh, harsh, muskan, shiva]
      */
 
-    //  
- public static void main(String []args){
-TreeSet<Integer> ts=new TreeSet<>(new MyComparator());
-ts.add(4);
-ts.add(5);
-ts.add(1);
-ts.add(11);
-ts.add(12);
-ts.add(13);
-ts.add(2);
-ts.add(1);   
-System.out.println(ts);
+//     //  
+//  public static void main(String []args){
+// TreeSet<Integer> ts=new TreeSet<>(new MyComparator());
+// ts.add(4);
+// ts.add(5);
+// ts.add(1);
+// ts.add(11);
+// ts.add(12);
+// ts.add(13);
+// ts.add(2);
+// ts.add(1);   
+// System.out.println(ts);
+// }
+
+public  static void main(String []args){
+    TreeSet<Integer> ts=new TreeSet<>(new Comparator<Integer>() {
+
+        @Override
+        public int compare(Integer o1, Integer o2) {
+           
+            return 0;
+        }
+        
+    });
 }
  }
  
