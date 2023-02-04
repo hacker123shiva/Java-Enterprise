@@ -1,0 +1,896 @@
+eg#1
+ import java.io.*;
+ class TestApp
+ {
+	 public static void main(String [] args)
+	 {
+         File f1=new File("help.txt");
+     try{
+		 f1.createNewFile();
+	    }
+	catch(IOException e)
+		 {
+		System.out.println(e);
+		 }
+
+	 }
+ }
+
+Output:
+
+
+
+C:\Users\Shiva Srivastava\Desktop\Programming>javac Main.java
+
+C:\Users\Shiva Srivastava\Desktop\Programming>java TestApp
+
+C:\Users\Shiva Srivastava\Desktop\Programming>dir
+ Volume in drive C is OS
+ Volume Serial Number is AEA4-7170
+
+ Directory of C:\Users\Shiva Srivastava\Desktop\Programming
+
+12-11-2022  10:37    <DIR>          .
+10-11-2022  20:18    <DIR>          ..
+12-11-2022  10:37                 0 help.txt
+12-11-2022  10:37               630 TestApp.class
+
+eg#2
+ import java.io.*;
+
+class MakeFileSameFolder
+{public static void main(String [] args)
+	{
+	File f=new File("file1.txt");
+	System.out.println(f.exists());
+	System.out.println(f.isFile());
+	}
+}
+
+output:
+C:\Users\Shiva Srivastava\Desktop\Programming>javac Main.java
+C:\Users\Shiva Srivastava\Desktop\Programming>java MakeFileSameFolder
+false
+false
+
+eg#3
+  
+ // file class
+import java.io.*;
+//file f=new File("abc.txt");
+
+class FileDemo
+{
+	public static void main(String [] args)
+	{File f=new File("abc.txt");
+	System.out.println(f.exists());
+	try{
+	f.createNewFile();
+	System.out.println(f.exists());
+	}
+
+	catch(IOException e)
+		{
+System.out.println(e);
+		}
+	 
+}
+}
+
+Output:
+C:\Users\Shiva Srivastava\Desktop\Programming>javac Main.java
+
+C:\Users\Shiva Srivastava\Desktop\Programming>java TestDemo
+Error: Could not find or load main class TestDemo
+Caused by: java.lang.ClassNotFoundException: TestDemo
+
+C:\Users\Shiva Srivastava\Desktop\Programming>java FileDemo
+false
+true
+
+C:\Users\Shiva Srivastava\Desktop\Programming>java FileDemo
+true
+true
+
+C:\Users\Shiva Srivastava\Desktop\Programming>dir
+ Volume in drive C is OS
+ Volume Serial Number is AEA4-7170
+
+ Directory of C:\Users\Shiva Srivastava\Desktop\Programming
+
+13-11-2022  21:27    <DIR>          .
+10-11-2022  20:18    <DIR>          ..
+13-11-2022  21:27                 0 abc.txt
+13-11-2022  21:27               694 FileDemo.class
+
+eg#4
+ // file class
+import java.io.*;
+//file f=new File("cricket123");
+
+class FileDemo
+{
+	public static void main(String [] args)
+	{File f=new File("cricket123");
+	System.out.println(f.exists());
+
+	f.mkdir();//create a new directory
+	System.out.println(f.exists());
+
+}
+
+}
+
+ Output:
+C:\Users\Shiva Srivastava\Desktop\Programming>javac Main.java
+
+C:\Users\Shiva Srivastava\Desktop\Programming>java FileDemo
+false
+true
+
+C:\Users\Shiva Srivastava\Desktop\Programming>java FileDemo
+true
+true
+
+eg#5
+ // file class
+import java.io.*;
+//file f=new File("cricket123","shiva.txt");
+
+class FileDemo
+{
+	public static void main(String [] args)
+	{File f=new File("cricket123","shiva.txt");
+	System.out.println(f.exists());
+
+try{
+	f.createNewFile();//create a new directory
+	System.out.println(f.exists());
+}
+
+catch(IOException e)
+		{
+System.out.println(e);
+		}
+}
+}
+Output:
+C:\Users\Shiva Srivastava\Desktop\Programming>javac Main.java
+
+C:\Users\Shiva Srivastava\Desktop\Programming>java FileDemo
+false
+true
+
+C:\Users\Shiva Srivastava\Desktop\Programming>java FileDemo
+true
+true
+
+C:\Users\Shiva Srivastava\Desktop\Programming>dir
+ Volume in drive C is OS
+ Volume Serial Number is AEA4-7170
+
+ Directory of C:\Users\Shiva Srivastava\Desktop\Programming
+
+13-11-2022  21:34    <DIR>          .
+10-11-2022  20:18    <DIR>          ..
+13-11-2022  21:41    <DIR>          cricket123
+13-11-2022  21:41               732 FileDemo.class
+12-11-2022  10:37                 0 help.txt
+
+eg#6
+// file class
+import java.io.*;
+//file f=new File("cricket123","shiva.txt");
+
+class FileDemo
+{
+	public static void main(String [] args)
+	{
+File f1=new File("folder1");
+//f1.mkdir();
+File f2=new File(f1,"file1.txt");
+try{
+     f2.createNewFile();
+    System.out.println(f2.exists());
+   }
+
+catch(IOException e)
+	{
+    System.out.println(e);
+		}
+}
+}
+
+Output:
+C:\Users\Shiva Srivastava\Desktop\Programming>javac Main.java
+
+C:\Users\Shiva Srivastava\Desktop\Programming>java FileDemo
+java.io.IOException: The system cannot find the path specified                <--- > This occur because we are not create folder  and this folder not available in current directory
+
+
+eg#7
+ // file class
+import java.io.*;
+//file f=new File("cricket123","shiva.txt");
+
+class FileDemo
+{
+	public static void main(String [] args)
+	{
+File f1=new File("folder1");
+f1.mkdir();
+File f2=new File("C:\\programming_language\\sumer course\\java enterprise\\Reading Material\\FileIO","file1.txt");
+try{
+     f2.createNewFile();
+    System.out.println(f2.exists());
+   }
+
+catch(IOException e)
+	{
+    System.out.println(e);
+		}
+}
+}
+
+eg#8
+ // file class
+import java.io.*;
+//file f=new File("cricket123","shiva.txt");
+
+class FileDemo
+{
+	public static void main(String [] args)
+	{
+ 
+File f2=new File("C:\\programming_language\\sumer course\\java enterprise\\Reading Material\\FileIO\\file2.txt" );
+try{
+     f2.createNewFile();
+    System.out.println(f2.exists());
+   }
+
+catch(IOException e)
+	{
+    System.out.println(e);
+		}
+}
+}
+
+ eg#9
+ // file class
+import java.io.*;
+//file f=new File("cricket123","shiva.txt");
+
+class FileDemo
+{
+	public static void main(String [] args)
+	{
+File f1=new File("learn.txt");
+ boolean result =f1.exists();
+ System.out.println(result);
+
+try{
+f1.createNewFile();
+result=f1.exists();
+System.out.println(result);
+}
+
+catch(IOException e)
+		{
+System.out.println(e);
+		}
+
+System.out.println(f1.isFile());
+System.out.println(f1.isDirectory());
+File f2=new File("C:\\programming_language");
+String []strList= f2.list();
+
+for(String str: strList)
+		{
+System.out.println(str);
+str="alpha";
+		}
+ 
+for(String str: strList)
+		{
+System.out.println(str);
+
+		}
+ 
+System.out.println(f1.length());
+System.out.println(f2.length());
+	}
+
+}
+
+eg#10
+ // file class
+import java.io.*;
+class FileDemo
+{
+	public static void main(String [] args)
+	{
+int fileCount=0;
+int direct=0;
+ File f=new File("C:\\programming_language");
+
+ String []strList=f.list();
+
+for(String str: strList)
+		{
+File f1=new File(f,str);
+
+if(f1.isFile())
+			{
+fileCount++;
+			}
+if(f1.isDirectory())
+	direct++;
+		}
+System.out.println("No file:: "+fileCount);
+System.out.println("No directory:: "+direct);
+	}
+
+}
+
+ 
+FileWriter
+=========
+ // file class
+import java.io.*;
+class FileDemo
+{
+	public static void main(String [] args)
+	{
+
+		try
+		{
+			FileWriter  fw= new FileWriter("shiva.txt");
+			try{
+                 fw.write(70);
+                 fw.write(new char[] {'S','h','i','v','a'});
+                 fw.write("\nI am from Ballia");
+                 fw.flush();
+               }
+            catch(IOException e)
+		       {
+	             System.out.println(e);
+		       }
+            finally
+		       {
+               fw.close();
+		       }
+		}
+		catch (IOException e)
+		{
+			System.out.println(e);
+		}
+	}
+
+}
+
+ 
+eg#11
+
+ // file class
+import java.io.*;
+class FileDemo
+{
+	public static void main(String [] args)
+	{
+try
+	{
+	     FileWriter fw=new FileWriter("shiva.txt",true);
+		 
+		 try
+		 {
+			fw.write("Shiva Srivastava is Good Boy.\n Now I am in GLA\n");
+            fw.write(new char[]{'a','l','p','h','a'});
+            fw.flush();
+		 }
+		 catch (IOException e)
+		 {
+			 System.out.println(e);
+		 }
+		 
+		 finally
+		{
+            fw.close();
+		}
+		
+	}
+catch(IOException e)
+	{
+        System.out.println(e);
+	}
+ 
+	}
+
+}
+
+eg#12
+ // file class
+import java.io.*;
+class FileDemo
+{
+	public static void main(String [] args)
+    {
+		try
+		{
+		FileWriter fw=new FileWriter("file2.txt",true);
+		   try
+		    {
+		      fw.write("Shiva is Good Boy\n now i am in gla university" );
+              fw.flush();
+		    }
+		   catch (IOException e)
+		   {
+              System.out.println(e);
+		   }
+
+		  finally
+		  {
+			 fw.close();
+		  }
+            
+		}
+		catch (IOException e)
+		{
+			System.out.println(e);
+		}
+ 
+try
+{
+	FileReader fr=new FileReader("file2.txt");
+
+    try
+     {
+      int i=fr.read();
+      System.out.println(i);
+
+      while(i!=-1)
+		{
+	      char ch=(char)i;
+	      System.out.print(ch);
+	      i=fr.read();
+		}
+     }
+    catch (IOException e)
+     {
+	     System.out.println(e);
+     }
+   finally
+     {
+         fr.close();
+     }
+}
+catch (IOException e)
+{
+	System.out.println(e);
+}
+ 
+	}
+
+}
+
+ 
+eg#13
+
+ // file class
+import java.io.*;
+class FileDemo
+{
+	public static void main(String [] args)
+    {
+		try
+		{
+		FileWriter fw=new FileWriter("file2.txt",true);
+		   try
+		    {
+		      fw.write("Shiva is Good Boy\n now i am in gla university" );
+              fw.flush();
+		    }
+		   catch (IOException e)
+		   {
+              System.out.println(e);
+		   }
+
+		  finally
+		  {
+			 fw.close();
+		  }
+            
+		}
+		catch (IOException e)
+		{
+			System.out.println(e);
+		}
+ 
+try
+{File f=new File("file2.txt");
+	FileReader fr=new FileReader(f);
+
+    try
+     {
+      char []ch=new char[(int)f.length()];
+	  fr.read(ch);
+	  for(char c:ch)
+		 {
+           System.out.print(c);
+		 }
+ 
+     }
+    catch (IOException e)
+     {
+	     System.out.println(e);
+     }
+   finally
+     {
+         fr.close();
+     }
+}
+catch (IOException e)
+{
+	System.out.println(e);
+}
+ 
+	}
+
+}
+
+eg#14
+import java.io.*;
+
+ class Super
+ {
+
+void show() throws Exception
+	 {
+      int a=0;
+      int b=4/a;
+	 }
+ }
+
+ class Child extends Super
+ {
+	 void show() throws ArrayIndexOutOfBoundsException
+	 {int arr[]=new int[]{1,2,3,4};
+      System.out.println("Exception is not handled"+arr[4]);
+	 }
+ }
+
+ class OverridenException
+ {
+	 public static void main(String []args)
+	 {
+try{
+Child obj=new Child();
+obj.show();
+}
+
+catch(ArrayIndexOutOfBoundsException e)
+		 {
+	System.out.println(e);
+		 }
+	 }
+ }
+
+ 
+eg#19
+ import java.io.*;
+ class TestApp
+ {
+	 public static void main(String []args)
+	 {
+		 try
+		 {   BufferedWriter bw=new BufferedWriter(new FileWriter("file2.txt"));
+			 
+			 try{	    
+	         bw.write("shiva srivastava is of GLA University ");
+	         bw.newLine();
+	         bw.write(72);
+                             bw.write(new char[]{'s','h'});
+	         bw.flush();
+			 }
+
+			 catch(IOException e)
+			 {
+             System.out.println(e);
+			 }
+	         
+			 finally
+			 {
+			 bw.close();
+			 }
+	    }
+
+		catch(IOException e)
+		 {
+          System.out.println(e);
+		 }
+
+	 }
+ }
+ 
+eg#20
+ import java.io.*;
+ class TestApp
+ {
+	 public static void main(String []args)
+	 {
+		 try(BufferedWriter bw=new BufferedWriter(new FileWriter("file2.txt",true)))
+		 {    
+	     
+	         bw.write("shiva srivastava is of GLA University from Mathura ");
+	         bw.newLine();
+	         bw.write(72);
+			 bw.write(new char[]{'s','h'});
+	         bw.flush();       
+	    }
+
+		catch(IOException e)
+		 {
+          System.out.println(e);
+		 }
+
+	 }
+ }
+
+eg#21
+ import java.io.*;
+ class TestApp
+ {
+	 public static void main(String []args)
+	 {
+		try( BufferedReader br=new BufferedReader(new FileReader("file2.txt")))
+		 {
+            int i=br.read();
+			while(i!=-1)
+			 {
+               System.out.print((char)i);
+			   i=br.read();
+			 }
+
+			 br.close();
+		 }
+
+		 catch(IOException e)
+		 {
+            System.out.println(e);
+		 }
+
+
+	 }
+ }
+
+eg#22
+ import java.io.*;
+ class TestApp
+ {
+	 public static void main(String []args)
+	 {File f=new File("file2.txt");
+		try( BufferedReader br=new BufferedReader(new FileReader(f)))
+		 {char []ch=new char[(int)f.length()];
+           br.read(ch );
+           for(char c:ch)
+		 {
+             System.out.print(c);
+		 } 
+			 br.close();
+		 }
+   
+		 catch(IOException e)
+		 {
+            System.out.println(e);
+		 }
+ 
+
+	 }
+ }
+
+eg#23
+ import java.io.*;
+ class TestApp
+ {
+	 public static void main(String []args)
+	 {File f=new File("file2.txt");
+		try( BufferedReader br=new BufferedReader(new FileReader(f)))
+		 { String str;
+		str=br.readLine();
+		while(str!=null)
+			 {
+              System.out.print(str);
+              str=br.readLine();
+			 }
+			 br.close();
+		 }
+   
+		 catch(IOException e)
+		 {
+            System.out.println(e);
+		 }
+ 
+
+	 }
+ }
+
+eg#24
+ import java.io.*;
+ class TestApp
+ {
+	 public static void main(String []args)
+	 { 
+		try(PrintWriter pw=new PrintWriter(new FileWriter("file2.txt",true)))
+		 { pw.print("shiva");
+		   pw.println("i am from gla University");
+		   pw.print(false);
+		   pw.print(4.5);
+		 }
+   
+		 catch(IOException e)
+		 {
+            System.out.println(e);
+		 }
+ 
+
+	 }
+ }
+
+eg#25
+ import java.io.*;
+//Question:1 Copy file1.txt and file2.txt content into file3.txt
+ class ContentCopy
+ {
+	 public static void main(String [] args)
+	 {
+      
+try(BufferedReader br1=new BufferedReader(new FileReader("file1.txt")); BufferedReader br2=new BufferedReader(new FileReader("file2.txt")); PrintWriter pw=new PrintWriter(new FileWriter("file3.txt",true)))
+		 {
+            String line=br1.readLine();
+			while(line!=null)
+			 {
+              pw.print(line);
+			  pw.flush();
+              line=br1.readLine();
+			 }
+
+			 line=br2.readLine();
+			 pw.println();
+			 while(line!=null)
+			 {
+               pw.print(line);
+			   pw.flush();
+			   line=br2.readLine();
+			   
+			 }
+
+		 }
+
+		 catch(IOException e)
+		 {
+            System.out.println(e);
+		 }
+
+	 }
+ }
+
+eg#26
+
+ import java.io.*;
+//Question:1 Copy file1.txt and file2.txt content into file3.txt
+ class ContentCopy
+ {
+	 public static void main(String [] args) 
+	 {PrintWriter pw;
+      
+try 
+	{      pw =new PrintWriter(new FileWriter("file3.txt",true));
+	       String line ;
+		try{  
+		  BufferedReader br1=new BufferedReader(new FileReader("file1.txt")); 
+           try
+           { 
+			line=br1.readLine();
+			while(line!=null)
+			 {  
+              pw.print(line);
+			  pw.flush();
+              line=br1.readLine();
+			 }
+           }
+           catch (IOException e)
+           {
+			   System.out.println(e);
+           }
+
+		   finally
+		   {
+           br1.close();
+		   }
+
+		}
+
+		catch(IOException e)
+		{
+           System.out.println(e);
+		}
+
+		 
+
+
+		try{  
+		  BufferedReader br2=new BufferedReader(new FileReader("file2.txt")); 
+           try
+           {
+			 pw.println();
+			 line=br2.readLine();
+			 while(line!=null)
+			 {
+               pw.print(line);
+			   pw.flush();
+			   line=br2.readLine(); 
+			 }
+           }
+           catch (IOException e)
+           {
+			   System.out.println(e);
+           }
+
+		   finally
+			{
+			br2.close();
+			}
+		   }
+
+		catch(IOException e)
+		{
+            System.out.println(e);
+		}
+
+		finally
+		{
+          pw.close();
+		}
+           
+	}	     
+		 catch(IOException e)
+		 {
+            System.out.println(e);
+		 }
+
+	 }
+ }
+
+eg#27
+class A
+{
+}
+
+class B extends A
+{
+}
+
+class Help
+{
+	public A help()
+	{
+		return new A();
+	}
+}
+
+class RunHelp extends Help
+{
+public B help()
+	{System.out.println("sjsf");
+     return new B();
+	}
+
+}
+
+class Main
+{
+	public static void main(String []args)
+	{
+      Help obj =new RunHelp();
+	  obj.help();
+	}
+}
