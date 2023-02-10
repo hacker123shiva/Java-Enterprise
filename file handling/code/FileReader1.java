@@ -10,6 +10,7 @@
             System.out.print(c);
         }
         System.out.println();
+        //note after traversing file doesnot traverse  again without create new object of filereader
         fr=new java.io.FileReader(f);
         System.out.println("read() method");
         int i=fr.read();

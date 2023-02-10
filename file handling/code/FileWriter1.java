@@ -15,7 +15,7 @@ import java.io.IOException;
         f1.write(45);
         f1.write("sha");
         f1.write('o');
-        f1.write('\n');
+        f1.write('\n');  //for new line we need to use \n in FileWriter
         f1.write(new char[]{'a','b','c'});
         f1.flush();
     }
